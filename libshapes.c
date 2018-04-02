@@ -75,7 +75,7 @@ Fontinfo loadfont(const int *Points,
 		const int *p = &Points[PointIndices[i] * 2];
 		const unsigned char *instructions = &Instructions[InstructionIndices[i]];
 		int ic = InstructionCounts[i];
-		VGPath path = vgCreatePath(VG_PATH_FORMAT_STANDARD, VG_PATH_DATATYPE_S_32,
+		VGPath path = vgCreatePath(VG_PATH_FORMAT_STANDARD, VG_PATH_DATATYPE_F,
 					   1.0f / 65536.0f, 0.0f, 0, 0,
 					   VG_PATH_CAPABILITY_ALL);
 		f.Glyphs[i] = path;
@@ -268,7 +268,6 @@ void init(int *w, int *h) {
 				DejaVuSansMono_glyphAdvances, DejaVuSansMono_characterMap, DejaVuSansMono_glyphCount);
 	MonoTypeface.descender_height = DejaVuSansMono_descender_height;
 	MonoTypeface.font_height = DejaVuSansMono_font_height;
-
 	*w = state->window_width;
 	*h = state->window_height;
 }
@@ -472,6 +471,7 @@ void Text(VGfloat x, VGfloat y, const char *s, Fontinfo f, int pointsize) {
 		vgMultMatrix(mat);
 		vgDrawPath(f.Glyphs[glyph], VG_FILL_PATH);
 		xx += size * f.GlyphAdvances[glyph] / 65536.0f;
+
 	}
 	vgLoadMatrix(mm);
 }
